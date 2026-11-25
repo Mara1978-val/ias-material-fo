@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IAs para crear material docente — Guía para profesoras de FO</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --card:#ffffff; --ink:#1b2430; --muted:#5b6b7c;
+    --accent:#2563eb; --accent2:#7c3aed; --ok:#059669; --warn:#b45309;
+    --code:#0f172a; --codeink:#e2e8f0; --border:#e2e8f0; --pill:#eef2ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  header.hero{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 45%,#7c3aed 100%);color:#fff;padding:56px 20px 48px;text-align:center}
+  header.hero h1{margin:0 0 10px;font-size:2.1rem;letter-spacing:-.5px}
+  header.hero p{margin:0 auto;max-width:760px;font-size:1.05rem;opacity:.95}
+  nav{position:sticky;top:0;z-index:50;background:#ffffffee;backdrop-filter:blur(6px);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+  nav a{color:var(--accent);text-decoration:none;font-size:.88rem;font-weight:600;padding:6px 12px;border-radius:999px}
+  nav a:hover{background:var(--pill)}
+  main{max-width:1040px;margin:0 auto;padding:32px 20px 64px}
+  section{margin-bottom:44px;scroll-margin-top:70px}
+  h2{font-size:1.5rem;margin:0 0 6px;border-left:5px solid var(--accent);padding-left:12px}
+  h3{font-size:1.12rem;margin:24px 0 8px}
+  .sub{color:var(--muted);margin:0 0 20px 17px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:18px;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+  .card h3{margin-top:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .badge{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--pill);color:var(--accent);text-transform:uppercase;letter-spacing:.4px}
+  .badge.green{background:#ecfdf5;color:var(--ok)}
+  .badge.purple{background:#f5f3ff;color:var(--accent2)}
+  .badge.orange{background:#fffbeb;color:var(--warn)}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+  th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+  th{background:#0f172a;color:#fff;font-size:.82rem;text-transform:uppercase;letter-spacing:.5px}
+  tr:last-child td{border-bottom:none}
+  .tblwrap{overflow-x:auto;border-radius:12px}
+  pre{background:var(--code);color:var(--codeink);padding:14px 16px;border-radius:10px;overflow-x:auto;font-size:.86rem;line-height:1.5;margin:10px 0}
+  code{font-family:Consolas,"Cascadia Mono",Menlo,monospace}
+  p code, li code, td code{background:#eef2f7;padding:1px 6px;border-radius:5px;color:#0f172a;font-size:.86em}
+  .copy{float:right;background:#334155;color:#cbd5e1;border:none;border-radius:6px;padding:3px 10px;font-size:.75rem;cursor:pointer}
+  .copy:hover{background:#475569;color:#fff}
+  .note{border-left:4px solid var(--warn);background:#fffbeb;padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;font-size:.93rem}
+  .note.info{border-color:var(--accent);background:#eff6ff}
+  .note.ok{border-color:var(--ok);background:#ecfdf5}
+  .steps{counter-reset:step;list-style:none;padding:0;margin:14px 0}
+  .steps li{counter-increment:step;position:relative;padding:0 0 16px 44px}
+  .steps li::before{content:counter(step);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  a{color:var(--accent)}
+  .toc-note{font-size:.85rem;color:var(--muted)}
+  footer{background:#0f172a;color:#94a3b8;text-align:center;padding:26px 16px;font-size:.85rem}
+  footer a{color:#93c5fd}
+  ul{padding-left:20px}
+  .kbd{background:#0f172a;color:#e2e8f0;padding:2px 7px;border-radius:5px;font-family:Consolas,monospace;font-size:.85em}
+  @media (max-width:640px){header.hero h1{font-size:1.5rem}pre{font-size:.78rem}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>🤖 IAs para crear material docente</h1>
+  <p>Guía práctica para profesoras y profesores de <strong>Formación Ocupacional (FO)</strong>:
+  presentaciones, páginas web dinámicas y publicación en GitHub — con la instalación y configuración paso a paso en <strong>PowerShell</strong>.</p>
+</header>
+
+<nav>
+  <a href="#usos">Qué IA para cada tarea</a>
+  <a href="#agentes">Agentes de código</a>
+  <a href="#omnirouter">OmniRouter</a>
+  <a href="#github">GitHub</a>
+  <a href="#web">Presentaciones y web</a>
+  <a href="#freebuf">FreeBuf</a>
+  <a href="#flujo">Flujo de trabajo</a>
+  <a href="#problemas">Problemas</a>
+</nav>
+
+<main>
+
+<!-- ===================== 1. TABLA POR USOS ===================== -->
+<section id="usos">
+  <h2>1. ¿Qué IA uso para cada tarea?</h2>
+  <p class="sub">Resumen rápido según el tipo de material que quieras crear.</p>
+
+  <div class="tblwrap">
+  <table>
+    <tr>
+      <th>Tarea</th>
+      <th>Herramientas recomendadas</th>
+      <th>¿Se instala en PowerShell?</th>
+    </tr>
+    <tr>
+      <td><strong>Presentaciones</strong> (diapositivas)</td>
+      <td>Gamma, Canva Magic Design — o bien OpenCode / Kiro / Antigravity para generar diapositivas en HTML</td>
+      <td>Gamma y Canva son web (sin instalar). Los agentes, sí.</td>
+    </tr>
+    <tr>
+      <td><strong>Páginas web dinámicas</strong> (unidades didácticas, formularios, quiz)</td>
+      <td>OpenCode, Kiro, Antigravity, Claude Code, Gemini CLI — o v0, Bolt, Lovable (web)</td>
+      <td>Sí (agentes)</td>
+    </tr>
+    <tr>
+      <td><strong>Subir y publicar en GitHub</strong> (GitHub Pages gratis)</td>
+      <td>GitHub CLI (<code>gh</code>)</td>
+      <td>Sí: <code>winget install GitHub.cli</code></td>
+    </tr>
+    <tr>
+      <td><strong>Unificar varios modelos de IA</strong> con una sola clave</td>
+      <td>OmniRouter</td>
+      <td>Sí (binario + archivo <code>.env</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>Información y novedades de ciberseguridad</strong></td>
+      <td>FreeBuf (portal web, no es una IA)</td>
+      <td>No — es una web: <a href="https://www.freebuf.com" target="_blank" rel="noopener">freebuf.com</a></td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="note info">
+    <strong>Idea:</strong> los “agentes de código” (OpenCode, Kiro, Antigravity…) no solo programan:
+    con un buen pedido en lenguaje natural crean <em>diapositivas en HTML</em>, <em>webs de unidad didáctica</em>,
+    <em>cuadernos de ejercicios</em> y los suben solos a tu repositorio de GitHub. Son la herramienta más completa
+    para una profesora de FO que quiera material personalizado y siempre actualizable.
+  </div>
+</section>
+
+<!-- ===================== 2. AGENTES ===================== -->
+<section id="agentes">
+  <h2>2. Agentes de código: instalación y configuración en PowerShell</h2>
+  <p class="sub">Todos los comandos se pegan en PowerShell (Inicio → “PowerShell”). Requisitos previos en la tabla siguiente.</p>
+
+  <h3>Requisitos previos (una sola vez)</h3>
+  <pre><code># Comprobar versiones (PowerShell)
+$PSVersionTable.PSVersion   # PowerShell 5.1+ (ideal 7)
+winget --version            # gestor de paquetes de Windows
+git --version               # si falla: winget install Git.Git
+node --version              # si falla: winget install OpenJS.NodeJS.LTS
+npm --version</code></pre>
+
+  <div class="tblwrap">
+  <table>
+    <tr><th>Herramienta</th><th>Qué es</th><th>Coste típico</th><th>Ideal para</th></tr>
+    <tr>
+      <td><strong>OpenCode</strong></td>
+      <td>Agente de código libre (terminal, escritorio o web). Trabaja con muchos proveedores de IA.</td>
+      <td>Gratis (código abierto) — aportas tu propia clave de IA</td>
+      <td>Páginas web, presentaciones HTML, automatizar tareas con GitHub</td>
+    </tr>
+    <tr>
+      <td><strong>Kiro</strong> (AWS)</td>
+      <td>IDE y agente con modo de especificaciones: planifica antes de escribir. Incluye CLI, web y app móvil.</td>
+      <td>Plan gratuito disponible; planes de pago opcionales</td>
+      <td>Proyectos grandes, querer un plan revisable antes de generar</td>
+    </tr>
+    <tr>
+      <td><strong>Antigravity</strong> (Google)</td>
+      <td>Plataforma agéntica de Google con CLI, IDE, app y SDK. Usa los modelos Gemini.</td>
+      <td>Gratis para desarrolladores</td>
+      <td>Si ya usas cuenta de Google/Gemini; creación asistida con navegador integrado</td>
+    </tr>
+    <tr>
+      <td><strong>Claude Code</strong></td>
+      <td>Agente de Anthropic en la terminal.</td>
+      <td>Requiere cuenta/créditos Anthropic</td>
+      <td>Texto largo, documentación y redacción cuidada</td>
+    </tr>
+    <tr>
+      <td><strong>Gemini CLI</strong></td>
+      <td>Agente de Google en la terminal.</td>
+      <td>Cuota gratuita con cuenta Google</td>
+      <td>Tareas rápidas sin coste, integración con Google</td>
+    </tr>
+  </table>
+  </div>
+
+  <!-- OPENCODE -->
+  <div class="card">
+    <h3>① OpenCode <span class="badge">Código abierto</span></h3>
+    <p>En Windows los gestores de paquetes (winget/scoop/choco) <strong>no están soportados</strong> por su instalador; se instala con <strong>npm</strong> o con el binario independiente.</p>
+
+    <h4>Instalación (npm — recomendada)</h4>
+    <pre><button class="copy" onclick="copiar(this)">copiar</button><code># 1) Node.js LTS si aún no lo tienes
+winget install OpenJS.NodeJS.LTS
+
+# 2) Reinicia PowerShell y instala OpenCode
+npm install -g @opencode/cli
+
+# 3) Comprobar
+opencode --version</code></pre>
+
+    <h4>Instalación alternativa (binario sin dependencias)</h4>
+    <pre><button class="copy" onclick="copiar(this)">copiar</button><code>$zip = "$env:TEMP\opencode.zip"
+Invoke-WebRequest -Uri "https://opencode.ai/update/api/latest/cli/opencode/opencode-windows-x64.zip" -OutFile $zip
+Expand-Archive $zip -DestinationPath "$env:LOCALAPPDATA\opencode" -Force
+# Añadir esa carpeta a la variable PATH del sistema para usar "opencode" desde cualquier carpeta</code></pre>
+
+    <h4>Configuración y primer uso</h4>
+    <pre><button class="copy" onclick="copiar(this)">copiar</button><code># Ir a la carpeta de tu material (o crear una nueva)
+mkdir C:\mis-clases\fo-web
+cd C:\mis-clases\fo-web
+
+# Arrancar OpenCode
+opencode</code></pre>
+    <ul>
+      <li>Dentro del programa escribe <span class="kbd">/connect</span> y elige tu proveedor (Anthropic, OpenAI, Google, Amazon…); también puedes ejecutar <code>opencode auth login</code> desde la terminal.</li>
+      <li>Configuración global en <code>~/.config/opencode/opencode.json</code>; por proyecto, <code>opencode.json</code> en la carpeta.</li>
+      <li>Ejemplo de uso docente: <em>“Crea una presentación HTML de 10 diapositivas sobre prevención de riesgos laborales y guárdala en presentacion/index.html”</em>.</li>
+    </ul>
+    <p class="toc-note">Docs: <a href="https://opencode.ai/docs/" target="_blank" rel="noopener">opencode.ai/docs</a></p>
+  </div>
+
+  <!-- KIRO -->
+  <div class="card">
+    <h3>② Kiro (AWS) <span class="badge purple">CLI + IDE + Web</span></h3>
+    <p>Requisitos oficiales del CLI: <strong>Windows 11</strong> con <strong>Windows Terminal o PowerShell</strong> (no Símbolo del sistema). En Windows 10, instala la <em>IDE</em> con winget.</p>
+
+    <h4>Instalación del CLI (PowerShell)</h4>
+    <pre><button class="copy" onclick="copiar(this)">copiar</button><code># Instalador oficial de Kiro CLI (descarga y verifica el MSI automáticamente)
+irm 'https://cli.kiro.dev/install.ps1' | iex
+
+# Abrir una ventana NUEVA de PowerShell y comprobar
+kiro-cli --version</code></pre>
+
+    <h4>Instalación de la IDE (alternativa / Windows 10)</h4>
+    <pre><button class="copy" onclick="copiar(this)">copiar</button><code>winget install Amazon.Kiro        # IDE de escritorio
+winget install Amazon.KiroCrew     # agente personal persistente (opcional)</code></pre>
+
+    <h4>Configuración y primer uso</h4>
+    <pre><button class="copy" onclick="copiar(this)">copiar</button><code>cd C:\mis-clases\fo-web
+kiro-cli login     # inicio de sesión en el navegador
+kiro-cli chat      # abre la sesión de chat en la terminal</code></pre>
+    <ul>
+      <li>Primer arranque: te preguntan esquema de color, modo de render y <em>workspace trust</em> (confirma que confías en la carpeta).</li>
+      <li>Dentro del chat: <span class="kbd">/guide</span> (ayuda), <span class="kbd">/model</span> (cambiar modelo), <span class="kbd">Shift+Tab</span> (modo plan antes de actuar).</li>
+      <li>Para que entienda tu materia: crea <code>.kiro\steering\proyecto.md</code> con el contexto de tus unidades didácticas.</li>
+    </ul>
+    <p class="toc-note">Docs: <a href="https://kiro.dev/docs/getting-started/installation" target="_blank" rel="noopener">kiro.dev/docs</a></p>
+  </div>
+
+  <!-- ANTIGRAVITY -->
+  <div class="card">
+    <h3>③ Antigravity (Google) <span class="badge green">Gratis</span></h3>
+    <p>Incluye la <strong>Antigravity App</strong> (escritorio), el <strong>Antigravity IDE</strong> y la <strong>Antigravity CLI</strong> (<code>agy</code>).</p>
+
+    <h4>Instalación de la CLI (PowerShell)</h4>
+    <pre><button class="copy" onclick="copiar(this)">copiar</button><code># Instalador oficial de Google (PowerShell)
+irm https://antigravity.google/cli/install.ps1 | iex
+
+# Comprobar (abre una terminal nueva si hace falta)
+agy --version</code></pre>
+
+    <h4>Instalación de la app de escritorio (opcional)</h4>
+    <pre><button class="copy" onclick="copiar(this)">copiar</button><code># Windows 10/11 x64 — descarga el instalador oficial
+Invoke-WebRequest -Uri "https://storage.googleapis.com/antigravity-public/antigravity-hub/2.35.1-4615540875067392/windows-x64/Antigravity-x64.exe" -OutFile "$env:USERPROFILE\Downloads\Antigravity-x64.exe"
+explorer "$env:USERPROFILE\Downloads\Antigravity-x64.exe"   # ejecuta el instalador y sigue el asistente</code></pre>
+
+    <h4>Configuración y primer uso</h4>
+    <pre><button class="copy" onclick="copiar(this)">copiar</button><code>mkdir C:\mis-clases\fo-web
+cd C:\mis-clases\fo-web
+agy          # primer arranque: colores, modo de render y confianza en la carpeta
+agy -i "Crea una web de la unidad de cocina con un quiz de 5 preguntas"</code></pre>
+    <ul>
+      <li>Inicia sesión con tu <strong>cuenta personal de Google</strong> (o cuenta Gemini Enterprise/Cloud si tu centro la facilita).</li>
+      <li>Atajos útiles: <span class="kbd">Ctrl+R</span> revisar cambios, <span class="kbd">Shift+Tab</span> cambiar modo (auto/plan), <span class="kbd">/exit</span> salir.</li>
+      <li>También existe como extensión de VS Code, Visual Studio, JetBrains, Zed, Xcode y Eclipse.</li>
+    </ul>
+    <p class="toc-note">Docs: <a href="https://antigravity.google/docs/getting-started" target="_blank" rel="noopener">antigravity.google/docs</a></p>
+  </div>
+
+  <!-- CLAUDE CODE -->
+  <div class="card">
+    <h3>④ Claude Code <span class="badge orange">Anthropic</span></h3>
+    <pre><button class="copy" onclick="copiar(this)">copiar</button><code># Requiere Node.js LTS (winget install OpenJS.NodeJS.LTS)
+npm install -g @anthropic-ai/claude-code
+
+# Uso
+cd C:\mis-clases\fo-web
+claude        # primer arranque: inicio de sesión / clave API</code></pre>
+    <p class="toc-note">Documentación: <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener">docs.anthropic.com</a> (necesita cuenta Anthropic con créditos).</p>
+  </div>
+
+  <!-- GEMINI CLI -->
+  <div class="card">
+    <h3>⑤ Gemini CLI <span class="badge green">Google</span></h3>
+    <pre><button class="copy" onclick="copiar(this)">copiar</button><code># Requiere Node.js LTS (winget install OpenJS.NodeJS.LTS)
+npm install -g @google/gemini-cli
+
+# Uso
+cd C:\mis-clases\fo-web
+gemini        # primer arranque: elige "Login with Google" para la cuota gratuita</code></pre>
+    <p class="toc-note">Documentación: <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener">github.com/google-gemini/gemini-cli</a></p>
+  </div>
+</section>
+
+<!-- ===================== 3. OMNIROUTER ===================== -->
+<section id="omnirouter">
+  <h2>3. OmniRouter — un solo enlace para varios modelos</h2>
+  <p class="sub">Router local (código abierto, MIT) que unifica varios modelos de IA detrás de <strong>una sola clave</strong> compatible con OpenAI y Anthropic, con panel web de control.</p>
+
+  <div class="note info">
+    <strong>¿Para qué sirve a una profesora?</strong> En vez de gestionar claves de Qwen, GLM, DeepSeek, Gemini…
+    por separado, arrancas OmniRouter una vez y <em>cualquier</em> herramienta (OpenCode, Claude Code, etc.)
+    habla con él usando <code>http://localhost:8080/v1</code> y una clave <code>sk-…</code>. Si un modelo falla,
+    salta automáticamente al siguiente (<em>failover</em>).
+  </div>
+
+  <h3>Instalación en PowerShell (Windows)</h3>
+  <ol class="steps">
+    <li><strong>Descargar y descomprimir la última versión</strong>
+      <pre><button class="copy" onclick="copiar(this)">copiar</button><code>$zip = "$env:TEMP\omnirouter.zip"
+Invoke-WebRequest -Uri "https://github.com/Godde3s/omnirouter/releases/download/v1.4.0/dist-omnirouter-windows-amd64.zip" -OutFile $zip
+Expand-Archive $zip -DestinationPath "$env:USERPROFILE\omnirouter" -Force
+cd "$env:USERPROFILE\omnirouter"</code></pre>
+      Contenido: <code>omnirouter-windows-amd64.exe</code>, <code>.env.example</code>, <code>start.bat</code>, y los ayudantes <code>ds-login-windows-amd64.exe</code> y <code>qwen-bx-windows-amd64.exe</code>.
+    </li>
+    <li><strong>Crear la configuración</strong>
+      <pre><button class="copy" onclick="copiar(this)">copiar</button><code>Copy-Item .env.example .env
+notepad .env</code></pre>
+      Variables mínimas que conviene revisar:
+      <pre><code>PORT=8080                     # puerto del panel
+ADMIN_PASSWORD=               # vacío = genera una clave aleatoria (se imprime en el log)
+DEEPSEEK_TOKENS=              # opcional - se obtiene con .\ds-login-windows-amd64.exe
+QWEN_TOKENS=                  # opcional (también funciona como invitado)
+GEMINI_COOKIES=               # opcional (también funciona como invitado)
+AUTO_CHAIN=qwen/qwen3.8-max,ds/deepseek-chat,gemini/gemini-3.6-flash
+AGENT_MODE=1                  # activa tool-calling para los agentes</code></pre>
+    </li>
+    <li><strong>Arrancar</strong>
+      <pre><button class="copy" onclick="copiar(this)">copiar</button><code>.\omnirouter-windows-amd64.exe      # o bien: .\start.bat</code></pre>
+      Abre el panel en <a href="http://localhost:8080" target="_blank" rel="noopener"><strong>http://localhost:8080</strong></a>.
+    </li>
+    <li><strong>Conectar tus herramientas</strong> (por ejemplo OpenCode u otro agente):
+      <pre><code>Base URL:  http://localhost:8080/v1
+API Key:   sk-…        (la crea el panel en "Claves")
+Model:     auto        (elige el mejor proveedor disponible con failover)</code></pre>
+      Para clientes compatibles con Anthropic (tipo Claude Code): <code>ANTHROPIC_BASE_URL=http://localhost:8080</code> y <code>ANTHROPIC_API_KEY=sk-…</code>.
+    </li>
+  </ol>
+
+  <div class="note">
+    <strong>Aviso:</strong> OmniRouter está en desarrollo activo y está pensado para uso personal/educativo.
+    Revisa las condiciones de uso de cada servicio al que te conectes y no subas a Internet el panel con
+    <code>ADMIN_PASSWORD</code> vacío.
+  </div>
+  <p class="toc-note">Proyecto: <a href="https://github.com/Godde3s/omnirouter" target="_blank" rel="noopener">github.com/Godde3s/omnirouter</a> · Demo: <a href="https://godde3s.github.io/omnirouter/" target="_blank" rel="noopener">godde3s.github.io/omnirouter</a></p>
+</section>
+
+<!-- ===================== 4. GITHUB ===================== -->
+<section id="github">
+  <h2>4. GitHub: tu repositorio y tu página web gratis</h2>
+  <p class="sub">GitHub es donde guardas (y publicas) todo el material generado. Se controla desde PowerShell con GitHub CLI (<code>gh</code>).</p>
+
+  <h3>Instalación</h3>
+  <pre><button class="copy" onclick="copiar(this)">copiar</button><code>winget install GitHub.cli
+
+# Cerrar y abrir PowerShell, luego identificarte (abre el navegador)
+gh auth login</code></pre>
+
+  <h3>Crear un repositorio y subir tu material</h3>
+  <pre><button class="copy" onclick="copiar(this)">copiar</button><code># Ir a la carpeta de tu proyecto
+cd C:\mis-clases\fo-web
+
+# Preparar Git (solo la primera vez en ese PC)
+git init
+git add .
+git commit -m "Material de clase"
+
+# Crear el repositorio en GitHub y subirlo (público)
+gh repo create ias-material-fo --public --source . --push</code></pre>
+
+  <h3>Publicar como página web (GitHub Pages)</h3>
+  <pre><button class="copy" onclick="copiar(this)">copiar</button><code># Activar GitHub Pages desde la rama principal
+gh api -X POST repos/{owner}/ias-material-fo/pages -f "source[branch]=main" -f "source[path]=/"
+
+# Ver la URL resultante
+gh api repos/{owner}/ias-material-fo/pages --jq .html_url</code></pre>
+  <div class="note ok">
+    <strong>Resultado:</strong> tu material queda en <code>https://&lt;usuario&gt;.github.io/ias-material-fo/</code>
+    — enlaces para tus alumnos que no caducan y se actualizan con cada <code>git push</code>.
+  </div>
+
+  <h3>Actualizaciones diarias</h3>
+  <pre><button class="copy" onclick="copiar(this)">copiar</button><code>cd C:\mis-clases\fo-web
+git add .
+git commit -m "Actualiza la unidad 3"
+git push</code></pre>
+</section>
+
+<!-- ===================== 5. WEB / PRESENTACIONES ===================== -->
+<section id="web">
+  <h2>5. Presentaciones y páginas web sin instalar nada</h2>
+  <p class="sub">Alternativas 100 % web, útiles cuando no quieres tocar PowerShell.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Gamma <span class="badge">Web</span></h3>
+      <p>Genera presentaciones completas a partir de un tema o de un texto. Exporta a PDF/PPTX. Ideal para clases magistrales rápidas.</p>
+      <p class="toc-note"><a href="https://gamma.app" target="_blank" rel="noopener">gamma.app</a></p>
+    </div>
+    <div class="card">
+      <h3>Canva Magic Design <span class="badge">Web</span></h3>
+      <p>Diseño de diapositivas, infografías y hojas de trabajo con plantillas. Muy visual y con colaboración para equipos docentes.</p>
+      <p class="toc-note"><a href="https://www.canva.com" target="_blank" rel="noopener">canva.com</a></p>
+    </div>
+    <div class="card">
+      <h3>v0 · Bolt · Lovable <span class="badge purple">Web</span></h3>
+      <p>Generadores de páginas web dinámicas describiendo lo que quieres. Buen complemento a los agentes cuando solo necesitas una web sencilla.</p>
+      <p class="toc-note"><a href="https://v0.app" target="_blank" rel="noopener">v0.app</a> · <a href="https://bolt.new" target="_blank" rel="noopener">bolt.new</a> · <a href="https://lovable.dev" target="_blank" rel="noopener">lovable.dev</a></p>
+    </div>
+  </div>
+
+  <div class="note info">
+    <strong>Consejo:</strong> si el material debe durar y ser editable, prioriza los agentes (sección 2) + GitHub (sección 4).
+    Si solo necesitas algo para mañana por la mañana, usa Gamma o Canva.
+  </div>
+</section>
+
+<!-- ===================== 6. FREEBUF ===================== -->
+<section id="freebuf">
+  <h2>6. FreeBuf (aclaración)</h2>
+  <div class="note">
+    <strong>FreeBuf no es una herramienta de IA para crear material.</strong>
+    Es un portal web de noticias y artículos de <strong>ciberseguridad</strong> (<a href="https://www.freebuf.com" target="_blank" rel="noopener">freebuf.com</a>),
+    muy reconocido en el ámbito hispanohablante y anglosajón. No se instala ni se configura en PowerShell:
+    se consulta desde el navegador. Útil para estar al día en ciberseguridad si tus unidades de FO incluyen
+    contenidos de seguridad informática o RGPD; <em>no</em> sirve para generar presentaciones ni webs.
+  </div>
+</section>
+
+<!-- ===================== 7. FLUJO ===================== -->
+<section id="flujo">
+  <h2>7. Flujo de trabajo completo (ejemplo real)</h2>
+  <p class="sub">De la idea a la web pública en cinco pasos, todo desde PowerShell.</p>
+
+  <ol class="steps">
+    <li><strong>Crear la carpeta del proyecto</strong>
+      <pre><code>mkdir C:\mis-clases\fo-web
+cd C:\mis-clases\fo-web
+git init</code></pre>
+    </li>
+    <li><strong>Arrancar el agente</strong> (OpenCode, Kiro o Antigravity) y pedirle el material:
+      <pre><code>opencode        # o: kiro-cli   /   agy</code></pre>
+      Ejemplo de pedido: <em>“Crea una web estática de la unidad ‘Mecanizado básico’: índice, teoría resumida, 8 preguntas de autoevaluación con corrección y una tabla de herramientas. En español.”</em>
+    </li>
+    <li><strong>Revisar el resultado</strong> en el navegador (el agente te dice la ruta, p. ej. <code>index.html</code>).</li>
+    <li><strong>Subirlo a GitHub</strong>
+      <pre><code>git add .
+git commit -m "Unidad mecanizado - material"
+gh repo create fo-mecanizado --public --source . --push</code></pre>
+    </li>
+    <li><strong>Publicar y compartir</strong> la URL de GitHub Pages con tus alumnos (ver sección 4).</li>
+  </ol>
+</section>
+
+<!-- ===================== 8. PROBLEMAS ===================== -->
+<section id="problemas">
+  <h2>8. Problemas frecuentes en PowerShell</h2>
+  <div class="tblwrap">
+  <table>
+    <tr><th>Síntoma</th><th>Causa</th><th>Solución</th></tr>
+    <tr>
+      <td><code>… no se reconoce como cmdlet</code></td>
+      <td>Programa recién instalado</td>
+      <td>Cierra y vuelve a abrir PowerShell; si sigue, reinicia el PC (PATH).</td>
+    </tr>
+    <tr>
+      <td><code>winget no se reconoce</code></td>
+      <td>Windows 10 muy antiguo o App Installer ausente</td>
+      <td>Instala “Instalador de aplicaciones” desde Microsoft Store, o usa el instalador oficial de cada herramienta.</td>
+    </tr>
+    <tr>
+      <td><code>Ejecución de scripts deshabilitada</code></td>
+      <td>Política de ejecución de PowerShell</td>
+      <td><code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code> (los <code>irm … | iex</code> no se ven afectados).</td>
+    </tr>
+    <tr>
+      <td><code>kiro-cli</code> no existe</td>
+      <td>CLI de Kiro requiere Windows 11</td>
+      <td>Usa la IDE: <code>winget install Amazon.Kiro</code>.</td>
+    </tr>
+    <tr>
+      <td><code>npm</code>/<code>node</code> no existen</td>
+      <td>Node.js no instalado</td>
+      <td><code>winget install OpenJS.NodeJS.LTS</code> y abre una terminal nueva.</td>
+    </tr>
+    <tr>
+      <td>El agente no “ve” Internet o fallan las claves</td>
+      <td>Proveedor de IA sin credenciales</td>
+      <td>Conéctalo con <code>/connect</code> (OpenCode), <code>kiro-cli login</code> o tu clave API en variables de entorno.</td>
+    </tr>
+    <tr>
+      <td>OmniRouter no abre el panel</td>
+      <td>Puerto ocupado o proceso cerrado</td>
+      <td>Cambia <code>PORT</code> en <code>.env</code>, reinicia el <code>.exe</code> y abre <code>http://localhost:8080</code>.</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="note">
+    <strong>Seguridad y protección de datos:</strong> no subas nunca a GitHub datos personales de alumnado
+    (nombres, notas, DNI, fotos). Usa repos <em>privados</em> para material con datos y revisa siempre el
+    contenido generado por IA antes de compartirlo en clase.
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Guía de IAs para material docente · Formación Ocupacional ·
+  Repositorio: <a href="https://github.com/Mara1978-val/ias-material-fo" target="_blank" rel="noopener">github.com/Mara1978-val/ias-material-fo</a>
+  <br>Comprobado con la documentación oficial de OpenCode, Kiro, Google Antigravity, OmniRouter y GitHub CLI (noviembre 2026).
+</footer>
+
+<script>
+function copiar(btn){
+  const code = btn.parentElement.querySelector('code');
+  navigator.clipboard.writeText(code.innerText).then(()=>{
+    const t = btn.textContent; btn.textContent = '¡copiado!';
+    setTimeout(()=>btn.textContent = t, 1500);
+  });
+}
+</script>
+</body>
+</html>
